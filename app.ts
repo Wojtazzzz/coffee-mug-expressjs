@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import { router } from './routes/index';
 import logger from 'morgan';
