@@ -1,7 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { router } from './routes/index';
 import logger from 'morgan';
+import { productsRouter } from './src/modules/products/products.routes';
 
 const app = express();
 
@@ -12,6 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(router);
+app.use(productsRouter);
 
 export default app;
