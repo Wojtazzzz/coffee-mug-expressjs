@@ -8,13 +8,13 @@ dotenv.config();
 
 const app = express();
 
-app.listen(3000);
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(productsRouter);
+
+app.listen(3000);
 
 export default app;
