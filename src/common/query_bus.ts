@@ -24,7 +24,7 @@ export class QueryBus<ReturnType> {
 
 	async execute<QueryName extends keyof QueryHandlersMap<ReturnType>>(
 		query: QueryHandlersMap<ReturnType>[QueryName]['query'],
-	): Promise<QueryHandlersMap<ReturnType>[QueryName]['result']> {
+	) {
 		const queryName = query.constructor.name;
 
 		const handler = this.handlers[queryName];
