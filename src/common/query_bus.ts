@@ -1,10 +1,10 @@
 import { Query } from './query';
 
-type QueryHandlersMap<R> = Record<
+type QueryHandlersMap<ReturnType> = Record<
 	string,
 	{
 		query: Query<any>;
-		result: R;
+		result: ReturnType;
 	}
 >;
 
