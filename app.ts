@@ -1,7 +1,10 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import dotenv from 'dotenv';
 import { productsRouter } from './src/modules/products/products.routes';
+
+dotenv.config();
 
 const app = express();
 
