@@ -1,8 +1,8 @@
 import { Query } from '../../common/query';
 
-export class GetProductsQuery implements Query {
-	constructor(public readonly page: number) {}
-}
+export class GetProductsQuery extends Query<{
+	page: number;
+}> {}
 
 export const getProductsHandler = async (query: GetProductsQuery) => {
 	// fetch data...

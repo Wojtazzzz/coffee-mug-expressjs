@@ -1,21 +1,36 @@
 import { Query } from './query';
-import {
-	getProductsHandler,
-	GetProductsQuery,
-} from '../modules/products/products.queries';
 
-export class QueryBus {
-	private handlers = new Map<string, Function>();
-
-	constructor() {
-		this.handlers.set(GetProductsQuery.name, getProductsHandler);
+type QueryHandlersMap<R> = Record<
+	string,
+	{
+		query: Query<any>;
+		result: R;
 	}
+>;
 
-	async execute(query: Query) {
-		const handler = this.handlers.get(query.constructor.name);
+type QueryHandler<TQuery extends Query<any>, TResult> = (
+	query: TQuery,
+) => Promise<TResult>;
+
+export class QueryBus<ReturnType> {
+	constructor(
+		private handlers: {
+			[K in keyof QueryHandlersMap<ReturnType>]: QueryHandler<
+				QueryHandlersMap<ReturnType>[K]['query'],
+				QueryHandlersMap<ReturnType>[K]['result']
+			>;
+		},
+	) {}
+
+	async execute<QueryName extends keyof QueryHandlersMap<ReturnType>>(
+		query: QueryHandlersMap<ReturnType>[QueryName]['query'],
+	): Promise<QueryHandlersMap<ReturnType>[QueryName]['result']> {
+		const queryName = query.constructor.name;
+
+		const handler = this.handlers[queryName];
 
 		if (!handler) {
-			throw new Error(`No handler found for query: ${query.constructor.name}`);
+			throw new Error(`No handler found for query '${queryName}'.`);
 		}
 
 		return await handler(query);
