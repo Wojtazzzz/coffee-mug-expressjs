@@ -1,4 +1,4 @@
-import { Query } from './query';
+import { type Query } from './query';
 
 type QueryHandlersMap<ReturnType> = Record<
 	string,

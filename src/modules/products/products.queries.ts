@@ -1,16 +1,16 @@
 import { Query } from '../../common/query';
+import { getDatabase } from '../../mongodb/getDatabase';
 
-export class GetProductsQuery extends Query<{
-	page: number;
-}> {}
+export class GetProductsQuery extends Query {
+	constructor() {
+		super(null);
+	}
+}
 
 export const getProductsHandler = async (query: GetProductsQuery) => {
-	// fetch data...
+	const db = await getDatabase();
 
-	return [
-		{
-			id: 1,
-			name: 'Długopis',
-		},
-	];
+	const cursor = db.collection('products').find();
+
+	return await cursor.toArray();
 };

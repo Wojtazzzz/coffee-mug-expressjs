@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(productsRouter);
+app.use('/products', productsRouter);
 
 app.listen(3000);
 
