@@ -1,4 +1,4 @@
-import { Query } from '../../common/query';
+import { Query } from '../../common/cqrs/query';
 import { getDatabase } from '../../mongodb/getDatabase';
 
 export class GetProductsQuery extends Query {
