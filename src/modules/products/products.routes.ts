@@ -1,15 +1,22 @@
 import { Router } from 'express';
 import { QueryBus } from '../../common/cqrs/query_bus';
-import { getProductsHandler, GetProductsQuery } from './products.queries';
 import { mapProductDocumentToDto } from './products.mappers';
-import {
-	CreateProductCommand,
-	createProductHandler,
-} from './products.commands';
 import { CommandBus } from '../../common/cqrs/command_bus';
 import { validateRequest } from '../../common/validate_request';
 import { CreateProductRequest } from './products.dtos';
 import { requestHandler } from '../../common/request_handler';
+import {
+	CreateProductCommand,
+	createProductHandler,
+} from './commands/create_product.command';
+import {
+	RestockProductCommand,
+	restockProductHandler,
+} from './commands/restock_product.command';
+import {
+	getProductsHandler,
+	GetProductsQuery,
+} from './queries/get_products.query';
 
 const router = Router();
 
@@ -19,6 +26,7 @@ const queryBus = new QueryBus({
 
 const commandBus = new CommandBus({
 	CreateProductCommand: createProductHandler,
+	RestockProductCommand: restockProductHandler,
 });
 
 router.get(
@@ -41,6 +49,19 @@ router.post(
 		await commandBus.execute(command);
 
 		res.status(201).json({});
+	}),
+);
+
+router.post(
+	'/:id/restock',
+	requestHandler(async (req, res, next) => {
+		const command = new RestockProductCommand({
+			id: String(req.params.id),
+		});
+
+		await commandBus.execute(command);
+
+		res.status(204).json({});
 	}),
 );
 

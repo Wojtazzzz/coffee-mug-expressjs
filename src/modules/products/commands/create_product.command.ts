@@ -1,5 +1,5 @@
-import { Command } from '../../common/cqrs/command';
-import { Product } from './domain/product';
+import { Command } from '../../../common/cqrs/command';
+import { Product } from '../domain/product';
 
 export class CreateProductCommand extends Command<{
 	name: string;
