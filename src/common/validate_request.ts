@@ -11,9 +11,7 @@ export const validateRequest = <Dto extends object>(
 		next: NextFunction,
 	) => {
 		const dtoObject = plainToInstance(requestDto, req.body);
-		const errors = await validate(dtoObject, {
-			skipMissingProperties: true,
-		});
+		const errors = await validate(dtoObject);
 
 		if (errors.length > 0) {
 			res.status(422).json({

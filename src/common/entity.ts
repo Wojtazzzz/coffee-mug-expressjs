@@ -4,9 +4,7 @@ export abstract class BaseEntity {
 	protected validationErrors: string[] = [];
 
 	validate() {
-		const errors = validateSync(this, {
-			skipMissingProperties: true,
-		});
+		const errors = validateSync(this);
 
 		if (errors.length > 0) {
 			this.validationErrors = errors
