@@ -18,6 +18,16 @@ export const errorHandler = (
 			errors: err.errors,
 		});
 	} else {
-		next(err);
+		if (process.env.APP_ENV === 'local') {
+			res.status(500).json({
+				message: err.message,
+				errors: [],
+			});
+		} else {
+			res.status(500).json({
+				message: 'Something went wrong.',
+				errors: [],
+			});
+		}
 	}
 };
