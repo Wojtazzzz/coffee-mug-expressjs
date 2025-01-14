@@ -3,32 +3,45 @@ import { getDatabase } from '../../mongodb/get_database';
 import { type Product } from './domain/product';
 import { type ClassPropertiesOnly } from '../../common/types';
 
-const COLLECTION_NAME = 'products' as const;
+export const PRODUCTS_COLLECTION_NAME = 'products' as const;
 
 export const getAllProducts = async () => {
 	const db = await getDatabase();
 
-	return await db.collection(COLLECTION_NAME).find().toArray();
+	return await db.collection(PRODUCTS_COLLECTION_NAME).find().toArray();
+};
+
+export const getProductsByIds = async (ids: string[]) => {
+	const db = await getDatabase();
+
+	return await db
+		.collection(PRODUCTS_COLLECTION_NAME)
+		.find({
+			_id: {
+				$in: ids.map((id) => new ObjectId(id)),
+			},
+		})
+		.toArray();
 };
 
 export const findProductById = async (id: string) => {
 	const db = await getDatabase();
 
-	return await db.collection(COLLECTION_NAME).findOne({
-		_id: ObjectId.createFromHexString(id),
+	return await db.collection(PRODUCTS_COLLECTION_NAME).findOne({
+		_id: new ObjectId(id),
 	});
 };
 
 export const createProduct = async (data: ClassPropertiesOnly<Product>) => {
 	const db = await getDatabase();
 
-	return await db.collection(COLLECTION_NAME).insertOne(data);
+	return await db.collection(PRODUCTS_COLLECTION_NAME).insertOne(data);
 };
 
 export const increaseProductStock = async (id: string) => {
 	const db = await getDatabase();
 
-	return await db.collection(COLLECTION_NAME).findOneAndUpdate(
+	return await db.collection(PRODUCTS_COLLECTION_NAME).findOneAndUpdate(
 		{
 			_id: new ObjectId(id),
 		},
@@ -43,7 +56,7 @@ export const increaseProductStock = async (id: string) => {
 export const decreaseProductStock = async (id: string) => {
 	const db = await getDatabase();
 
-	return await db.collection(COLLECTION_NAME).findOneAndUpdate(
+	return await db.collection(PRODUCTS_COLLECTION_NAME).findOneAndUpdate(
 		{
 			_id: new ObjectId(id),
 		},

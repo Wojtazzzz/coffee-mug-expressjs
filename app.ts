@@ -4,6 +4,7 @@ import logger from 'morgan';
 import dotenv from 'dotenv';
 import { productsRouter } from './src/modules/products/products.routes';
 import { errorHandler } from './src/common/error_handler';
+import { ordersRouter } from './src/modules/orders/orders.routes';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/products', productsRouter);
+app.use('/orders', ordersRouter);
 app.use(errorHandler);
 
 app.listen(3000);
