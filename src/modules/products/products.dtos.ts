@@ -1,8 +1,16 @@
-import { IsString, Length, IsNumber, IsPositive } from 'class-validator';
+import {
+	IsString,
+	Length,
+	IsNumber,
+	IsPositive,
+	Validate,
+} from 'class-validator';
+import { ValidObjectId } from '../../common/validators';
 
 export class CreateProductRequest {
 	@IsString()
 	@Length(1, 50)
+	@Validate(ValidObjectId)
 	name: string;
 
 	@IsString()

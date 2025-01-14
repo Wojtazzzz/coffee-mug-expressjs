@@ -19,6 +19,7 @@ export class ProductDto {
 export class OrderProductDto {
 	@IsString()
 	@IsNotEmpty()
+	@Validate(ValidObjectId)
 	id: string;
 
 	@IsNumber()

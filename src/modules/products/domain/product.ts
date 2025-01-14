@@ -1,15 +1,24 @@
 import { BaseEntity } from '../../../common/entity';
-import { IsString, Length, IsNumber, IsOptional, Min } from 'class-validator';
+import {
+	IsString,
+	Length,
+	IsNumber,
+	IsOptional,
+	Min,
+	Validate,
+} from 'class-validator';
 import { DomainError } from '../../../common/errors';
 import {
 	createProduct,
 	decreaseProductStock,
 	increaseProductStock,
 } from '../products.repository';
+import { ValidObjectId } from '../../../common/validators';
 
 export class Product extends BaseEntity {
 	@IsString()
 	@IsOptional()
+	@Validate(ValidObjectId)
 	id?: string;
 
 	@IsString()

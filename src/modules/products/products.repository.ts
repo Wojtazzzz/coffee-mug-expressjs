@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '../../mongodb/get_database';
 import { type Product } from './domain/product';
 import { type ClassPropertiesOnly } from '../../common/types';
+import { InfrastructureError } from '../../common/errors';
 
 export const PRODUCTS_COLLECTION_NAME = 'products' as const;
 
@@ -27,6 +28,10 @@ export const getProductsByIds = async (ids: string[]) => {
 export const findProductById = async (id: string) => {
 	const db = await getDatabase();
 
+	if (!ObjectId.isValid(id)) {
+		throw new InfrastructureError('Passed invalid product id.');
+	}
+
 	return await db.collection(PRODUCTS_COLLECTION_NAME).findOne({
 		_id: new ObjectId(id),
 	});
@@ -40,6 +45,10 @@ export const createProduct = async (data: ClassPropertiesOnly<Product>) => {
 
 export const increaseProductStock = async (id: string) => {
 	const db = await getDatabase();
+
+	if (!ObjectId.isValid(id)) {
+		throw new InfrastructureError('Passed invalid product id.');
+	}
 
 	return await db.collection(PRODUCTS_COLLECTION_NAME).findOneAndUpdate(
 		{
@@ -55,6 +64,10 @@ export const increaseProductStock = async (id: string) => {
 
 export const decreaseProductStock = async (id: string) => {
 	const db = await getDatabase();
+
+	if (!ObjectId.isValid(id)) {
+		throw new InfrastructureError('Passed invalid product id.');
+	}
 
 	return await db.collection(PRODUCTS_COLLECTION_NAME).findOneAndUpdate(
 		{
