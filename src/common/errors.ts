@@ -9,8 +9,12 @@ export class DomainError extends Error {
 }
 
 export class ApplicationError extends Error {
-	readonly errors: string[];
+	constructor(message: string) {
+		super(message);
+	}
+}
 
+export class InfrastructureError extends Error {
 	constructor(message: string) {
 		super(message);
 	}
