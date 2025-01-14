@@ -18,7 +18,7 @@ export const errorHandler = (
 		});
 	} else if (err instanceof InfrastructureError) {
 		res.status(500).json({
-			message: 'Something went wrong. Please try again later.',
+			message: err.message,
 		});
 	} else {
 		if (process.env.APP_ENV === 'dev') {

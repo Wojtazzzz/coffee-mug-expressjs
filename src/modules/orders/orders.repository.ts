@@ -34,7 +34,9 @@ export const createOrder = async (data: ClassPropertiesOnly<Order>) => {
 	} catch (error) {
 		await session.abortTransaction();
 
-		throw new InfrastructureError('Transaction aborted, order not created.');
+		throw new InfrastructureError(
+			'Cannot create order, please try again later.',
+		);
 	}
 
 	session.endSession();
