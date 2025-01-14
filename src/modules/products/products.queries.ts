@@ -1,5 +1,5 @@
 import { Query } from '../../common/cqrs/query';
-import { getDatabase } from '../../mongodb/getDatabase';
+import { getDatabase } from '../../mongodb/get_database';
 
 export class GetProductsQuery extends Query {
 	constructor() {

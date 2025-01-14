@@ -7,9 +7,9 @@ import {
 	createProductHandler,
 } from './products.commands';
 import { CommandBus } from '../../common/cqrs/command_bus';
-import { validateRequest } from '../../common/validateRequest';
+import { validateRequest } from '../../common/validate_request';
 import { CreateProductRequest } from './products.dtos';
-import { requestHandler } from '../../common/requestHandler';
+import { requestHandler } from '../../common/request_handler';
 
 const router = Router();
 

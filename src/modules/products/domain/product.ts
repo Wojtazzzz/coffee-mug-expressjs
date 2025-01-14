@@ -1,6 +1,6 @@
 import { BaseEntity } from '../../../common/entity';
 import { IsString, Length, IsNumber, IsPositive } from 'class-validator';
-import { getDatabase } from '../../../mongodb/getDatabase';
+import { getDatabase } from '../../../mongodb/get_database';
 import { DomainError } from '../../../common/errors';
 
 export class Product extends BaseEntity {
