@@ -61,6 +61,22 @@ export class Product extends BaseEntity {
 			throw new DomainError('Cannot restock not existing product.', []);
 		}
 
-		await restockProduct(this.id);
+		await increaseProductStock(this.id);
+	}
+
+	async sell() {
+		if (!this.validate()) {
+			throw new DomainError('Cannot sell this product.', this.validationErrors);
+		}
+
+		if (!this.id) {
+			throw new DomainError('Cannot sell not existing product.', []);
+		}
+
+		if (this.stock < 1) {
+			throw new DomainError('Cannot sell product with stock below 1.', []);
+		}
+
+		await decreaseProductStock(this.id);
 	}
 }

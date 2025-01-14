@@ -25,7 +25,7 @@ export const createProduct = async (data: ClassPropertiesOnly<Product>) => {
 	return await db.collection(COLLECTION_NAME).insertOne(data);
 };
 
-export const restockProduct = async (id: string) => {
+export const increaseProductStock = async (id: string) => {
 	const db = await getDatabase();
 
 	return await db.collection(COLLECTION_NAME).findOneAndUpdate(
@@ -35,6 +35,21 @@ export const restockProduct = async (id: string) => {
 		{
 			$inc: {
 				stock: 1,
+			},
+		},
+	);
+};
+
+export const decreaseProductStock = async (id: string) => {
+	const db = await getDatabase();
+
+	return await db.collection(COLLECTION_NAME).findOneAndUpdate(
+		{
+			_id: new ObjectId(id),
+		},
+		{
+			$inc: {
+				stock: -1,
 			},
 		},
 	);

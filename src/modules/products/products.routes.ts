@@ -17,6 +17,10 @@ import {
 	getProductsHandler,
 	GetProductsQuery,
 } from './queries/get_products.query';
+import {
+	SellProductCommand,
+	sellProductHandler,
+} from './commands/sell_product.command';
 
 const router = Router();
 
@@ -27,6 +31,7 @@ const queryBus = new QueryBus({
 const commandBus = new CommandBus({
 	CreateProductCommand: createProductHandler,
 	RestockProductCommand: restockProductHandler,
+	SellProductCommand: sellProductHandler,
 });
 
 router.get(
@@ -56,6 +61,19 @@ router.post(
 	'/:id/restock',
 	requestHandler(async (req, res, next) => {
 		const command = new RestockProductCommand({
+			id: String(req.params.id),
+		});
+
+		await commandBus.execute(command);
+
+		res.status(204).json({});
+	}),
+);
+
+router.post(
+	'/:id/sell',
+	requestHandler(async (req, res, next) => {
+		const command = new SellProductCommand({
 			id: String(req.params.id),
 		});
 

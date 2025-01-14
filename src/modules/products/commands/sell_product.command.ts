@@ -1,0 +1,21 @@
+import { Command } from '../../../common/cqrs/command';
+import { mapProductDocumentToEntity } from '../products.mappers';
+import { ApplicationError } from '../../../common/errors';
+import { Product } from '../domain/product';
+import { findProductById } from '../products.repository';
+
+export class SellProductCommand extends Command<{
+	id: string;
+}> {}
+
+export const sellProductHandler = async (command: SellProductCommand) => {
+	const document = await findProductById(command.params.id);
+
+	if (!document) {
+		throw new ApplicationError('Provided product does not exist.');
+	}
+
+	const product = new Product(mapProductDocumentToEntity(document));
+
+	await product.sell();
+};
