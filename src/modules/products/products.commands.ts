@@ -9,7 +9,7 @@ export class CreateProductCommand extends Command<{
 }> {}
 
 export const createProductHandler = async (command: CreateProductCommand) => {
-	const product = new Product({ ...command.params });
+	const product = new Product(command.params);
 
 	await product.create();
 };

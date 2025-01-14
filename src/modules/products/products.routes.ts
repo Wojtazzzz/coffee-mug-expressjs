@@ -9,6 +9,7 @@ import {
 import { CommandBus } from '../../common/cqrs/command_bus';
 import { validateRequest } from '../../common/validateRequest';
 import { CreateProductRequest } from './products.dtos';
+import { requestHandler } from '../../common/requestHandler';
 
 const router = Router();
 
@@ -20,20 +21,27 @@ const commandBus = new CommandBus({
 	CreateProductCommand: createProductHandler,
 });
 
-router.get('/', async (req, res) => {
-	const query = new GetProductsQuery();
+router.get(
+	'/',
+	requestHandler(async (req, res, next) => {
+		const query = new GetProductsQuery();
 
-	const products = await queryBus.execute(query);
+		const products = await queryBus.execute(query);
 
-	res.json(products.map(mapProductDocumentToDto));
-});
+		res.json(products.map(mapProductDocumentToDto));
+	}),
+);
 
-router.post('/', validateRequest(CreateProductRequest), async (req, res) => {
-	const command = new CreateProductCommand(req.body);
+router.post(
+	'/',
+	validateRequest(CreateProductRequest),
+	requestHandler(async (req, res, next) => {
+		const command = new CreateProductCommand(req.body);
 
-	await commandBus.execute(command);
+		await commandBus.execute(command);
 
-	res.status(201).json({});
-});
+		res.status(201).json({});
+	}),
+);
 
 export { router as productsRouter };

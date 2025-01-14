@@ -1,11 +1,21 @@
 import { validateSync } from 'class-validator';
 
-export class BaseEntity {
+export abstract class BaseEntity {
+	protected validationErrors: string[] = [];
+
 	validate() {
 		const errors = validateSync(this, {
 			skipMissingProperties: true,
 		});
 
-		return errors.length <= 0;
+		if (errors.length > 0) {
+			this.validationErrors = errors
+				.flatMap((error) => Object.values(error.constraints ?? {}))
+				.filter((message) => message.length > 0);
+
+			return false;
+		}
+
+		return true;
 	}
 }

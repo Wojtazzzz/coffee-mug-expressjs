@@ -1,6 +1,7 @@
 import { BaseEntity } from '../../../common/entity';
 import { IsString, Length, IsNumber, IsPositive } from 'class-validator';
 import { getDatabase } from '../../../mongodb/getDatabase';
+import { DomainError } from '../../../common/errors';
 
 export class Product extends BaseEntity {
 	@IsString()
@@ -28,7 +29,10 @@ export class Product extends BaseEntity {
 		const db = await getDatabase();
 
 		if (!this.validate()) {
-			throw new Error('Invalid product data.');
+			throw new DomainError(
+				'Product cannot be created.',
+				this.validationErrors,
+			);
 		}
 
 		db.collection('products').insertOne({

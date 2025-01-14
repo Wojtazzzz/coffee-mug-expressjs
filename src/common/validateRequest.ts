@@ -16,12 +16,14 @@ export const validateRequest = <Dto extends object>(
 		});
 
 		if (errors.length > 0) {
-			return void res.status(422).json({
+			res.status(422).json({
 				errors: errors.map((err) => ({
 					property: err.property,
 					constraints: err.constraints,
 				})),
 			});
+
+			return;
 		}
 
 		req.body = dtoObject;
