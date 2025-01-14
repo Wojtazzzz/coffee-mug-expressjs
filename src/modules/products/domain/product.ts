@@ -1,13 +1,11 @@
 import { BaseEntity } from '../../../common/entity';
-import {
-	IsString,
-	Length,
-	IsNumber,
-	IsPositive,
-	IsOptional,
-} from 'class-validator';
+import { IsString, Length, IsNumber, IsOptional, Min } from 'class-validator';
 import { DomainError } from '../../../common/errors';
-import { createProduct, restockProduct } from '../products.repository';
+import {
+	createProduct,
+	decreaseProductStock,
+	increaseProductStock,
+} from '../products.repository';
 
 export class Product extends BaseEntity {
 	@IsString()
@@ -23,11 +21,11 @@ export class Product extends BaseEntity {
 	description: string;
 
 	@IsNumber()
-	@IsPositive()
+	@Min(0)
 	price: number;
 
 	@IsNumber()
-	@IsPositive()
+	@Min(0)
 	stock: number;
 
 	constructor(properties: Partial<Product>) {
