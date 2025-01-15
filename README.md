@@ -1,4 +1,4 @@
-# M&M Consulting - recruitment task
+# Coffee Mug - recruitment task
 
 ## Main tools
 
@@ -9,7 +9,7 @@
 
 ## Requirements
 
-1. Node
+1. Node v22
 2. Docker
 
 ## Installation
