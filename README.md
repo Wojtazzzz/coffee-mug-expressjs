@@ -28,7 +28,13 @@ git clone https://github.com/Wojtazzzz/coffee-mug-expressjs.git coffee-mug-expre
 cp .env.example .env
 ```
 
-3. Run mongo in docker
+3. Install dependencies
+
+```sh
+npm i
+```
+
+4. Run mongo in the Docker container
 
 ```sh
 docker compose up -d
