@@ -1,5 +1,5 @@
 import { type Document, type WithId } from 'mongodb';
-import { Product } from './domain/product';
+import { Product } from './domain/product.entity';
 import { ClassPropertiesOnly } from '../../common/types';
 
 export const mapProductDocumentToDto = (product: WithId<Document>) =>

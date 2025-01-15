@@ -9,7 +9,7 @@ import {
 import { DomainError } from '../../../common/errors';
 import { Type } from 'class-transformer';
 import { createOrder } from '../orders.repository';
-import { type Product } from '../../products/domain/product';
+import { type Product } from '../../products/domain/product.entity';
 import 'reflect-metadata';
 import { mapProductEntityToOrderProduct } from '../orders.mappers';
 import { OrderProductDto } from '../orders.dtos';

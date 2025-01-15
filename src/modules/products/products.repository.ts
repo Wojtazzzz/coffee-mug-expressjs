@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { getDatabase } from '../../mongodb/get_database';
-import { type Product } from './domain/product';
+import { type Product } from './domain/product.entity';
 import { type ClassPropertiesOnly } from '../../common/types';
 import { InfrastructureError } from '../../common/errors';
 

@@ -1,5 +1,5 @@
 import { ClassPropertiesOnly } from '../../common/types';
-import { type Product } from '../products/domain/product';
+import { type Product } from '../products/domain/product.entity';
 
 export const mapProductEntityToOrderProduct = (
 	product: ClassPropertiesOnly<Product>,

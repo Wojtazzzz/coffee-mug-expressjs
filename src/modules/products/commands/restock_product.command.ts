@@ -1,7 +1,7 @@
 import { Command } from '../../../common/cqrs/command';
 import { mapProductDocumentToEntity } from '../products.mappers';
 import { ApplicationError } from '../../../common/errors';
-import { Product } from '../domain/product';
+import { Product } from '../domain/product.entity';
 import { findProductById } from '../products.repository';
 
 export class RestockProductCommand extends Command<{
