@@ -19,7 +19,7 @@ Run the following commands:
 1. Clone repository
 
 ```sh
-gh repo clone Wojtazzzz/express-crud && cd express-crud
+git clone https://github.com/Wojtazzzz/coffee-mug-expressjs.git coffee-mug-expressjs && cd coffee-mug-expressjs
 ```
 
 2. Setup env variables
