@@ -51,7 +51,7 @@ export class Order extends BaseEntity {
 		this.products = products.map(mapProductEntityToOrderProduct);
 
 		if (this.products.length <= 0) {
-			throw new DomainError('Cannot create order without products.', []);
+			throw new DomainError('Cannot create order without products.');
 		}
 
 		if (!this.validate()) {
